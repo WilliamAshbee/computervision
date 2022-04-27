@@ -1,8 +1,12 @@
-boxImage = imread('stapleRemover.jpg');
+%boxImage = imread('stapleRemover.jpg');
+boxImage = imread('checkers6.jpg');
+boxImage =rgb2gray(boxImage);
+
 figure;
 imshow(boxImage);
 title('Image of a Box');
-sceneImage = imread('clutteredDesk.jpg');
+sceneImage = imread('testimage6.jpg');
+sceneImage = rgb2gray(sceneImage);
 figure;
 imshow(sceneImage);
 title('Image of a Cluttered Scene');
@@ -62,50 +66,50 @@ hold on;
 line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), 'Color', 'y');
 title('Detected Box');
 
-elephantImage = imread('elephant.jpg');
-figure;
-imshow(elephantImage);
-title('Image of an Elephant');
-
-elephantPoints = detectSURFFeatures(elephantImage);
-figure;
-imshow(elephantImage);
-hold on;
-plot(selectStrongest(elephantPoints, 100));
-title('100 Strongest Feature Points from Elephant Image');
-
-[elephantFeatures, elephantPoints] = extractFeatures(elephantImage, elephantPoints);
-
-elephantPairs = matchFeatures(elephantFeatures, sceneFeatures, 'MaxRatio', 0.9);
-
-
-matchedElephantPoints = elephantPoints(elephantPairs(:, 1), :);
-matchedScenePoints = scenePoints(elephantPairs(:, 2), :);
-figure;
-showMatchedFeatures(elephantImage, sceneImage, matchedElephantPoints, ...
-    matchedScenePoints, 'montage');
-title('Putatively Matched Points (Including Outliers)');
-
-[tform, inlierElephantPoints, inlierScenePoints] = ...
-    estimateGeometricTransform(matchedElephantPoints, matchedScenePoints, 'affine');
-figure;
-showMatchedFeatures(elephantImage, sceneImage, inlierElephantPoints, ...
-    inlierScenePoints, 'montage');
-title('Matched Points (Inliers Only)');
-
-
-elephantPolygon = [1, 1;...                                 % top-left
-        size(elephantImage, 2), 1;...                       % top-right
-        size(elephantImage, 2), size(elephantImage, 1);...  % bottom-right
-        1, size(elephantImage, 1);...                       % bottom-left
-        1,1];                         % top-left again to close the polygon
-
-newElephantPolygon = transformPointsForward(tform, elephantPolygon);
-
-figure;
-imshow(sceneImage);
-hold on;
-line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), 'Color', 'y');
-line(newElephantPolygon(:, 1), newElephantPolygon(:, 2), 'Color', 'g');
-title('Detected Elephant and Box');
-
+% elephantImage = imread('elephant.jpg');
+% figure;
+% imshow(elephantImage);
+% title('Image of an Elephant');
+% 
+% elephantPoints = detectSURFFeatures(elephantImage);
+% figure;
+% imshow(elephantImage);
+% hold on;
+% plot(selectStrongest(elephantPoints, 100));
+% title('100 Strongest Feature Points from Elephant Image');
+% 
+% [elephantFeatures, elephantPoints] = extractFeatures(elephantImage, elephantPoints);
+% 
+% elephantPairs = matchFeatures(elephantFeatures, sceneFeatures, 'MaxRatio', 0.9);
+% 
+% 
+% matchedElephantPoints = elephantPoints(elephantPairs(:, 1), :);
+% matchedScenePoints = scenePoints(elephantPairs(:, 2), :);
+% figure;
+% showMatchedFeatures(elephantImage, sceneImage, matchedElephantPoints, ...
+%     matchedScenePoints, 'montage');
+% title('Putatively Matched Points (Including Outliers)');
+% 
+% [tform, inlierElephantPoints, inlierScenePoints] = ...
+%     estimateGeometricTransform(matchedElephantPoints, matchedScenePoints, 'affine');
+% figure;
+% showMatchedFeatures(elephantImage, sceneImage, inlierElephantPoints, ...
+%     inlierScenePoints, 'montage');
+% title('Matched Points (Inliers Only)');
+% 
+% 
+% elephantPolygon = [1, 1;...                                 % top-left
+%         size(elephantImage, 2), 1;...                       % top-right
+%         size(elephantImage, 2), size(elephantImage, 1);...  % bottom-right
+%         1, size(elephantImage, 1);...                       % bottom-left
+%         1,1];                         % top-left again to close the polygon
+% 
+% newElephantPolygon = transformPointsForward(tform, elephantPolygon);
+% 
+% figure;
+% imshow(sceneImage);
+% hold on;
+% line(newBoxPolygon(:, 1), newBoxPolygon(:, 2), 'Color', 'y');
+% line(newElephantPolygon(:, 1), newElephantPolygon(:, 2), 'Color', 'g');
+% title('Detected Elephant and Box');
+% 
